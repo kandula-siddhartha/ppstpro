@@ -1,0 +1,15 @@
+# Compiled C++ binaries
+smart_farming
+smart_farming_app
+smart_farming_app.exe
+*.exe
+*.out
+
+# File-based database records
+farms_db.txt
+crops_db.txt
+sensors_db.txt
+
+# Build artifacts
+*.o
+*.obj
