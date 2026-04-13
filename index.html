@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Farming Monitoring System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bg-shape shape-1"></div>
+  <div class="bg-shape shape-2"></div>
+
+  <header class="hero">
+    <h1>Smart Farming Monitoring System</h1>
+    <p>Monitor farm, crop, and sensor conditions with real-time alerts</p>
+  </header>
+
+  <main class="container">
+    <section class="cards">
+      <article class="card">
+        <h3>Total Farms</h3>
+        <p id="farmCount">0</p>
+      </article>
+      <article class="card">
+        <h3>Total Crops</h3>
+        <p id="cropCount">0</p>
+      </article>
+      <article class="card">
+        <h3>Total Sensors</h3>
+        <p id="sensorCount">0</p>
+      </article>
+      <article class="card alert-card">
+        <h3>Active Alerts</h3>
+        <p id="alertCount">0</p>
+      </article>
+    </section>
+
+    <section class="form-section">
+      <h2>Add Farm</h2>
+      <form id="farmForm">
+        <input type="text" id="farmId" placeholder="Farm ID" required />
+        <input type="text" id="farmName" placeholder="Farm Name" required />
+        <input type="text" id="farmLocation" placeholder="Location" required />
+        <button type="submit">Add Farm</button>
+      </form>
+    </section>
+
+    <section class="form-section">
+      <h2>Add Crop</h2>
+      <form id="cropForm">
+        <input type="text" id="cropId" placeholder="Crop ID" required />
+        <input type="text" id="cropFarmId" placeholder="Farm ID" required />
+        <input type="text" id="cropName" placeholder="Crop Name" required />
+        <input type="text" id="cropSeason" placeholder="Season" required />
+        <button type="submit">Add Crop</button>
+      </form>
+    </section>
+
+    <section class="form-section">
+      <h2>Add Sensor Reading</h2>
+      <form id="sensorForm">
+        <input type="text" id="sensorId" placeholder="Sensor ID" required />
+        <input type="text" id="sensorFarmId" placeholder="Farm ID" required />
+        <input type="text" id="sensorCropId" placeholder="Crop ID" required />
+        <select id="sensorType" required>
+          <option value="">Select Sensor Type</option>
+          <option value="Moisture">Moisture</option>
+          <option value="Temperature">Temperature</option>
+          <option value="Humidity">Humidity</option>
+          <option value="WaterLevel">WaterLevel</option>
+        </select>
+        <input type="number" step="0.1" id="sensorValue" placeholder="Value" required />
+        <input type="text" id="sensorLocation" placeholder="Sensor Location" required />
+        <button type="submit">Add Sensor Data</button>
+      </form>
+    </section>
+
+    <section class="alerts-panel">
+      <h2>Alerts</h2>
+      <ul id="alertList"></ul>
+    </section>
+
+    <section class="table-panel">
+      <h2>Sensor Data Table</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Sensor ID</th>
+              <th>Farm ID</th>
+              <th>Crop ID</th>
+              <th>Type</th>
+              <th>Value</th>
+              <th>Status</th>
+              <th>Location</th>
+              <th>Time</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="sensorTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
