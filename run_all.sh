@@ -7,19 +7,23 @@ PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$PROJECT_ROOT"
 
 # ── Frontend ──────────────────────────────────────────────────────────────────
+SERVER_PID=""
+
 echo "Starting frontend on http://localhost:5500/index.html ..."
 
 if command -v python3 &>/dev/null; then
     python3 -m http.server 5500 &>/dev/null &
+    SERVER_PID=$!
+    echo "Frontend server PID: $SERVER_PID"
+    echo "Open http://localhost:5500/index.html in your browser."
 elif command -v python &>/dev/null; then
     python -m SimpleHTTPServer 5500 &>/dev/null &
+    SERVER_PID=$!
+    echo "Frontend server PID: $SERVER_PID"
+    echo "Open http://localhost:5500/index.html in your browser."
 else
     echo "Warning: python not found. Frontend server not started."
 fi
-
-SERVER_PID=$!
-echo "Frontend server PID: $SERVER_PID"
-echo "Open http://localhost:5500/index.html in your browser."
 
 # ── Backend (C++) ─────────────────────────────────────────────────────────────
 COMPILER=""
@@ -37,11 +41,15 @@ if [ -n "$COMPILER" ]; then
 else
     echo "No C++ compiler found. Frontend is running, but backend cannot be started."
     echo "Install g++ or clang++ and re-run this script."
-    echo ""
-    echo "Press Ctrl+C to stop the frontend server."
-    wait "$SERVER_PID"
+    if [ -n "$SERVER_PID" ]; then
+        echo ""
+        echo "Press Ctrl+C to stop the frontend server."
+        wait "$SERVER_PID"
+    fi
 fi
 
 # ── Cleanup ───────────────────────────────────────────────────────────────────
-echo "Stopping frontend server (PID $SERVER_PID) ..."
-kill "$SERVER_PID" 2>/dev/null || true
+if [ -n "$SERVER_PID" ]; then
+    echo "Stopping frontend server (PID $SERVER_PID) ..."
+    kill "$SERVER_PID" 2>/dev/null || true
+fi
