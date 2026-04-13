@@ -1,0 +1,9 @@
+# C++ build artifacts
+smart_farming_app
+smart_farming_app.exe
+*.o
+
+# File-based database files (generated at runtime)
+farms_db.txt
+crops_db.txt
+sensors_db.txt
